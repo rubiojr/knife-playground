@@ -6,6 +6,8 @@ Playground for various Opscode Chef Knife plugins
 
     gem install knife-playground
 
+*knife pg git* needs git (system command, not gem) installed.
+
 # Commands Available
 
 **knife pg config settings**
