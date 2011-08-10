@@ -50,6 +50,13 @@ module KnifePlayground
 
     end
     
+    #
+    # Most of this code comes from Opscode Knife cookbook_upload.rb plugin:
+    #
+    # https://github.com/opscode/chef/blob/master/chef/lib/chef/knife/cookbook_upload.rb
+    #
+    # Minor modifications to add Git support added
+    #
     class PgGitCookbookUpload < Chef::Knife
 
       CHECKSUM = "checksum"
