@@ -8,13 +8,13 @@ Playground for various Opscode Chef Knife plugins
 
 # Commands Available
 
-*knife pg clientnode delete CLIENT*
+**knife pg clientnode delete CLIENT**
 
 Delete client + node from Opscode Chef Server
     
     knife pg clientnode delete bluepill
 
-*knife pg gitcook upload Git-URL1 GitURL2 ...*
+**knife pg gitcook upload Git-URL1 GitURL2 ...**
 
 Upload a cookbook to a Chef Server downloading it first from a Git repository
 
