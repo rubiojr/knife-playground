@@ -66,6 +66,7 @@ module KnifePlayground
         require 'chef/exceptions'
         require 'chef/cookbook_loader'
         require 'chef/cookbook_uploader'
+        require 'git'
       end
 
       banner "knife pg git cookbook upload [COOKBOOKS...] (options)"
