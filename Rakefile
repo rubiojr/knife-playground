@@ -16,6 +16,7 @@ Jeweler::Tasks.new do |gem|
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   gem.add_runtime_dependency 'chef', '>= 0.10'
   gem.add_runtime_dependency 'git'
+  gem.add_runtime_dependency 'colorize'
   #  gem.add_development_dependency 'rspec', '> 1.2.3'
 end
 Jeweler::RubygemsDotOrgTasks.new

@@ -8,6 +8,12 @@ Playground for various Opscode Chef Knife plugins
 
 # Commands Available
 
+**knife pg config settings**
+
+Print Chef::Config settings
+
+    knife pg config settings
+
 **knife pg clientnode delete CLIENT**
 
 Delete client + node from Opscode Chef Server

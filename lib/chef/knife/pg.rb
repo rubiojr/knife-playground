@@ -1,6 +1,25 @@
 require 'chef'
 
 module KnifePlayground
+
+  class PgConfigSettings < Chef::Knife
+
+    banner "knife pg config settings"
+
+    deps do 
+      require 'colorize'
+    end
+
+    def run
+      Chef::Config.configure do |h|
+        h.each do |k,v|
+          puts "#{k.to_s.ljust(30).cyan} #{v}"
+        end
+      end
+    end
+
+  end
+
   class PgClientnodeDelete < Chef::Knife
     banner "knife pg clientnode delete CLIENT"
 
