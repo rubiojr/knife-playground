@@ -116,7 +116,6 @@ module KnifePlayground
         config[:cookbook_path] ||= Chef::Config[:cookbook_path]
 
         assert_environment_valid!
-        warn_about_cookbook_shadowing
         version_constraints_to_update = {}
         # Get a list of cookbooks and their versions from the server
         # for checking existence of dependending cookbooks.
@@ -147,9 +146,9 @@ module KnifePlayground
               cookbook.freeze_version if config[:freeze]
               upload(cookbook, justify_width)
               version_constraints_to_update[cookbook_name] = cookbook.version
-            rescue Exceptions::CookbookNotFoundInRepo => e
+            rescue Chef::Exceptions::CookbookNotFoundInRepo => e
               ui.error("Could not find cookbook #{cookbook_name} in your cookbook path, skipping it")
-              Log.debug(e)
+              Chef::Log.debug(e)
             end
           end
         end
@@ -177,28 +176,13 @@ module KnifePlayground
         @environment ||= config[:environment] ? Environment.load(config[:environment]) : nil
       end
 
-      def warn_about_cookbook_shadowing
-        unless cookbook_repo.merged_cookbooks.empty?
-          ui.warn "* " * 40
-          ui.warn(<<-WARNING)
-The cookbooks: #{cookbook_repo.merged_cookbooks.join(', ')} exist in multiple places in your cookbook_path.
-A composite version of these cookbooks has been compiled for uploading.
-
-#{ui.color('IMPORTANT:', :red, :bold)} In a future version of Chef, this behavior will be removed and you will no longer
-be able to have the same version of a cookbook in multiple places in your cookbook_path.
-WARNING
-          ui.warn "The affected cookbooks are located:"
-          ui.output ui.format_for_display(cookbook_repo.merged_cookbook_paths)
-          ui.warn "* " * 40
-        end
-      end
-
       private
       
       def git_clone(url, opts = {})
         repo = File.basename(URI.parse(url).path.split('/').last, '.git')
         @name_args << repo
-        path = File.join(Chef::Config[:cookbook_path], repo)
+        cbpath = Chef::Config[:cookbook_path].first rescue '/var/chef/cookbooks'
+        path = File.join(cbpath.first, repo)
         # Error if previous checkout exist
         if File.directory?(path + '/.git')
           ui.info "Cookbook #{repo} already downloaded."
